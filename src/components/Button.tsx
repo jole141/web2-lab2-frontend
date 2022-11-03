@@ -3,9 +3,10 @@ import styled from "styled-components";
 
 interface ButtonProps {
   label: string;
-  onClick: () => void;
+  onClick?: () => void;
   backgroundColor?: string;
   color?: string;
+  type?: "button" | "submit" | "reset";
 }
 
 const StyledButton = styled.button<Partial<ButtonProps>>`
@@ -27,9 +28,11 @@ const Button: FC<ButtonProps> = ({
   onClick,
   color,
   backgroundColor,
+  type,
 }) => {
   return (
     <StyledButton
+      type={type}
       color={color}
       backgroundColor={backgroundColor}
       onClick={onClick}
