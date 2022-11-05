@@ -1,8 +1,7 @@
 import React from "react";
 import Header from "./components/Header";
 import XSSAttack from "./pages/XSSAttack";
-import CSRFAttack from "./pages/CSRFAttack";
-import { colors } from "./constants/colors";
+import BrokenAuth from "./pages/BrokenAuth";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -29,7 +28,7 @@ function App() {
       <Container>
         <Wrapper>
           <XSSAttack />
-          <CSRFAttack />
+          <BrokenAuth />
         </Wrapper>
       </Container>
     </>
