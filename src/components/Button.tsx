@@ -7,6 +7,7 @@ interface ButtonProps {
   backgroundColor?: string;
   color?: string;
   type?: "button" | "submit" | "reset";
+  fullWidth?: boolean;
 }
 
 const StyledButton = styled.button<Partial<ButtonProps>>`
@@ -18,9 +19,9 @@ const StyledButton = styled.button<Partial<ButtonProps>>`
   font-size: 1rem;
   font-weight: 600;
   padding: 0.5rem 1.5rem;
-  width: 8rem;
   transition: all 0.2s ease-in-out;
   margin: 0.2rem;
+  width: ${(props) => (props.fullWidth ? "100%" : "8rem")};
 `;
 
 const Button: FC<ButtonProps> = ({
@@ -29,9 +30,11 @@ const Button: FC<ButtonProps> = ({
   color,
   backgroundColor,
   type,
+  fullWidth,
 }) => {
   return (
     <StyledButton
+      fullWidth={fullWidth}
       type={type}
       color={color}
       backgroundColor={backgroundColor}

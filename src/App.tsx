@@ -15,10 +15,10 @@ const Container = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   min-height: calc(100vh -4rem);
-  width: min(100rem, 100%);
+  width: 100%;
 `;
 
 function App() {
