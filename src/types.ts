@@ -9,3 +9,8 @@ export interface ITest {
   success: boolean;
   message: string;
 }
+
+export interface IComment {
+  id: number;
+  text: string;
+}

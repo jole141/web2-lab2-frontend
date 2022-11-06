@@ -47,7 +47,7 @@ const ErrorMessage = styled.div`
   font-size: 0.8rem;
 `;
 
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -55,7 +55,7 @@ const Container = styled.div`
   width: 40rem;
 `;
 
-const Title = styled.div`
+export const Title = styled.div`
   font-size: 1.2rem;
   font-weight: 700;
   color: ${colors.dark};
@@ -65,7 +65,7 @@ const Title = styled.div`
   gap: 0.5rem;
 `;
 
-const Description = styled.p`
+export const Description = styled.p`
   font-size: 1rem;
   line-height: 1.2rem;
   text-align: justify;
@@ -154,21 +154,22 @@ const BrokenAuth: FC = () => {
     <Container>
       {isLoading && <Loader />}
       <Title>
-        <h2>Broken Authentication {isEnable ? "(ENABLED)" : "(DISABLED)"}</h2>
+        <h2>
+          Broken Authentication {isEnable ? "(OMOGUĆEN)" : "(ONEMOGUĆEN)"}
+        </h2>
         <Checkbox
           type="checkbox"
           checked={isEnable}
           onChange={() => setIsEnable(!isEnable)}
         />
       </Title>
-
       <Description>
         U ovom napadu nam je cilj pogoditi korisnikovo korisničko ime i loziknu.
         Nezaštičeni sustav omogućava nam beskonačno pokušaja i upravo to ga čini
-        ranjivim. Ako je uključena zaštita onda se na poslužitelju radi provjera
+        ranjivim. Ako je onemogućen napad onda se na poslužitelju radi provjera
         IP-adrese računala koje šalje zahtjeve i u bazu (in memory) se spremaju
         podatci o pokušajima i točno vrijeme neuspjelog pokušaja. 5 minuta nakon
-        3 neuspjelog pokušaja korisnik se može probati ponovo ulogirati
+        3. neuspjelog pokušaja korisnik se može probati ponovo ulogirati
       </Description>
       <Description>
         Gumb za testiranje poslati će 36 zahtjeva za prijavu sa najučestalijim
@@ -182,6 +183,12 @@ const BrokenAuth: FC = () => {
         backgroundColor={colors.primary}
         onClick={handleTest}
       />
+      <Button
+        label={"Ukloni testove"}
+        fullWidth
+        color={colors.primary}
+        onClick={() => setTests([])}
+      />
       {tests.length > 0 &&
         tests.map((test, index) => (
           <TestResult
@@ -193,14 +200,18 @@ const BrokenAuth: FC = () => {
           />
         ))}
       <Description>
+        Prilikom testiranja aplikacije na Renderu, primjetio sam kako Render,
+        neovisno o računalu, zahtjeve šalje preko iste IP adrese, no napadač će
+        u većini slučajeva pisati skriptu za napadanje i neće koristiti naš
+        frontend (IP adresa će biti različita).
+      </Description>
+      <Description>
         Sustav za prijavu možete testirati ovdje. Ukoliko se prethodno pokrenuli
         test trebate pričekati da prođe 5 minuta prije sljedećeg pokušaja.
       </Description>
-      <Description>
-        Prilikom testiranja aplikacije na Renderu, primjetio sam kako Render,
-        neovisno o računalu, zahtjeve šalje preko iste IP adrese.
-      </Description>
+      <Description>Korisnici u bazi i njihove sifre su: </Description>
 
+      <b>(jjurenic, password123), (admin, admin), (test, sifra123)</b>
       <br />
       <br />
       {!loggedIn && (
@@ -240,6 +251,12 @@ const BrokenAuth: FC = () => {
           />
         </div>
       )}
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </Container>
   );
 };
