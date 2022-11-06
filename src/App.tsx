@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import XSSAttack from "./pages/XSSAttack";
 import BrokenAuth from "./pages/BrokenAuth";
 import styled from "styled-components";
+import CSRFAttack from "./pages/CSRFAttack";
 
 const Container = styled.div`
   width: 100%;
@@ -29,6 +30,7 @@ function App() {
         <Wrapper>
           <XSSAttack />
           <BrokenAuth />
+          <CSRFAttack />
         </Wrapper>
       </Container>
     </>
