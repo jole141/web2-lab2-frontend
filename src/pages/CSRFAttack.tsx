@@ -4,10 +4,6 @@ import { colors } from "../constants/colors";
 import { loginUser } from "../api";
 import Loader from "../components/Loader";
 import styled from "styled-components";
-import { DICTIONARY } from "../constants/dictionary";
-import { ITest } from "../types";
-import TestResult from "../components/TestResult";
-import Cookies from "js-cookie";
 import { useCookies } from "react-cookie";
 
 export const Input = styled.input`
@@ -127,7 +123,6 @@ const CSRFAttack: FC = () => {
 
   const handleLogout = async () => {
     setJwt("");
-    Cookies.remove("jwt");
     setCookie("jwt", undefined, { path: "/" });
     setLoggedIn(false);
     setMessage("Logged out successfully!");
