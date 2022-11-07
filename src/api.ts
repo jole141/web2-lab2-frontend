@@ -19,6 +19,17 @@ export const loginUser = async (
   return await response.json();
 };
 
+export const logout = async (): Promise<ILoginResponse> => {
+  const response = await fetch(`${API_URL}/api/logout`, {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return await response.json();
+};
+
 export const getComments = async (): Promise<IComment[]> => {
   const response = await fetch(`${API_URL}/comments`);
   return response.json();

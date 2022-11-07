@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import Button from "../components/Button";
 import { colors } from "../constants/colors";
-import { loginUser, resetBalance } from "../api";
+import { loginUser, logout, resetBalance } from "../api";
 import Loader from "../components/Loader";
 import styled from "styled-components";
 
@@ -119,8 +119,11 @@ const CSRFAttack: FC = () => {
   };
 
   const handleLogout = async () => {
+    setIsLoading(true);
+    await logout();
     setLoggedUser("");
     setLoggedIn(false);
+    setIsLoading(false);
     setMessage("Logged out successfully!");
     setTimeout(() => {
       setMessage("");
