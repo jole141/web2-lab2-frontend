@@ -1,6 +1,4 @@
 import { IComment, ILoginResponse } from "./types";
-import axios from "axios";
-axios.defaults.withCredentials = true;
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -10,12 +8,15 @@ export const loginUser = async (
   isEnabled: boolean
 ): Promise<ILoginResponse> => {
   const url = isEnabled ? "/api/login" : "/api/login-secure";
-  const response = await axios.post(`${API_URL}${url}`, {
-    username,
-    password,
+  const response = await fetch(`${API_URL}${url}`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, password }),
   });
-
-  return response.data;
+  return await response.json();
 };
 
 export const getComments = async (): Promise<IComment[]> => {
