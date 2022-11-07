@@ -8,7 +8,7 @@ export const loginUser = async (
   isEnabled: boolean
 ): Promise<ILoginResponse> => {
   const url = isEnabled ? "/api/login" : "/api/login-secure";
-  const response = await fetch(url, {
+  const response = await fetch(`${API_URL}${url}`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -20,7 +20,7 @@ export const loginUser = async (
 };
 
 export const logout = async (): Promise<ILoginResponse> => {
-  const response = await fetch("/api/logout", {
+  const response = await fetch(`${API_URL}/api/logout`, {
     method: "GET",
     credentials: "include",
     headers: {
