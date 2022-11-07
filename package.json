@@ -10,6 +10,7 @@
     "@types/node": "^16.11.68",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
+    "axios": "^1.1.3",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
@@ -47,6 +48,5 @@
   "devDependencies": {
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26"
-  },
-  "proxy": "https://web2-lab2-api.onrender.com"
+  }
 }

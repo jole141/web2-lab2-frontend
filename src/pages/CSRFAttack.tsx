@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import Button from "../components/Button";
 import { colors } from "../constants/colors";
-import { loginUser } from "../api";
+import { loginUser, resetBalance } from "../api";
 import Loader from "../components/Loader";
 import styled from "styled-components";
 
@@ -127,6 +127,17 @@ const CSRFAttack: FC = () => {
     }, 5000);
   };
 
+  const handleBalanceReset = async () => {
+    try {
+      setIsLoading(true);
+      await resetBalance();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Container>
       {isLoading && <Loader />}
@@ -146,7 +157,7 @@ const CSRFAttack: FC = () => {
         fullWidth
         color={colors.primary}
         backgroundColor={colors.white}
-        onClick={handleLogin}
+        onClick={handleBalanceReset}
       />
       {!loggedIn && (
         <>
