@@ -83,7 +83,7 @@ const BrokenAuth: FC = () => {
   const [password, setPassword] = React.useState("");
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [message, setMessage] = React.useState("");
-  const [jwt, setJwt] = React.useState("");
+  const [loggedUser, setLoggedUser] = React.useState("");
   const [tests, setTests] = React.useState<ITest[]>([]);
 
   const handleTest = async () => {
@@ -100,7 +100,7 @@ const BrokenAuth: FC = () => {
           username: DICTIONARY[i].username,
           password: DICTIONARY[i].password,
           success: !response.message,
-          message: response.token ? "Login successfull" : response.message!,
+          message: response.user ? "Login successfull" : response.message!,
         };
         setTests((prev) => [...prev, test]);
       }
@@ -123,8 +123,8 @@ const BrokenAuth: FC = () => {
     try {
       setIsLoading(true);
       const response = await loginUser(username, password, isEnable);
-      if (response.token) {
-        setJwt(response.token);
+      if (response.user) {
+        setLoggedUser(response.user);
         setLoggedIn(true);
       } else if (response.message) {
         setMessage(response.message);
@@ -142,7 +142,7 @@ const BrokenAuth: FC = () => {
   };
 
   const handleLogout = async () => {
-    setJwt("");
+    setLoggedUser("");
     setLoggedIn(false);
     setMessage("Logged out successfully!");
     setTimeout(() => {
@@ -242,7 +242,7 @@ const BrokenAuth: FC = () => {
       )}
       {loggedIn && (
         <div>
-          <p>JWT: {jwt}</p>
+          <p>User: {loggedUser}</p>
           <Button
             color={colors.white}
             backgroundColor={colors.error}

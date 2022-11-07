@@ -7,7 +7,7 @@ export const loginUser = async (
   password: string,
   isEnabled: boolean
 ): Promise<ILoginResponse> => {
-  const url = isEnabled ? `${API_URL}/login` : `${API_URL}/login-secure`;
+  const url = isEnabled ? "/api/login" : "/api/login-secure";
   const response = await fetch(url, {
     method: "POST",
     headers: {

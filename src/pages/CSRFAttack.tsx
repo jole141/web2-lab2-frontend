@@ -4,7 +4,6 @@ import { colors } from "../constants/colors";
 import { loginUser } from "../api";
 import Loader from "../components/Loader";
 import styled from "styled-components";
-import { useCookies } from "react-cookie";
 
 export const Input = styled.input`
   border: 1px solid #ccc;
@@ -87,8 +86,7 @@ const CSRFAttack: FC = () => {
   const [password, setPassword] = React.useState("");
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [message, setMessage] = React.useState("");
-  const [jwt, setJwt] = React.useState("");
-  const [cookies, setCookie] = useCookies(["jwt"]);
+  const [loggedUser, setLoggedUser] = React.useState("");
 
   const handleLogin = async () => {
     setMessage("");
@@ -102,9 +100,8 @@ const CSRFAttack: FC = () => {
     try {
       setIsLoading(true);
       const response = await loginUser(username, password, true);
-      if (response.token) {
-        setJwt(response.token);
-        setCookie("jwt", response.token, { path: "/" });
+      if (response.user) {
+        setLoggedUser(response.user);
         setLoggedIn(true);
       } else if (response.message) {
         setMessage(response.message);
@@ -122,8 +119,7 @@ const CSRFAttack: FC = () => {
   };
 
   const handleLogout = async () => {
-    setJwt("");
-    setCookie("jwt", undefined, { path: "/" });
+    setLoggedUser("");
     setLoggedIn(false);
     setMessage("Logged out successfully!");
     setTimeout(() => {
@@ -136,15 +132,22 @@ const CSRFAttack: FC = () => {
       {isLoading && <Loader />}
       <Title>
         <h2>CSRF attack {isEnable ? "(OMOGUĆEN)" : "(ONEMOGUĆEN)"}</h2>
-        <Checkbox
+        {/*<Checkbox
           type="checkbox"
           checked={isEnable}
           onChange={() => setIsEnable(!isEnable)}
-        />
+        />*/}
       </Title>
-      <StyledA href="https://csrf500euro.onrender.com/">
+      <StyledA href={process.env.REACT_APP_HACKER_CLIENT}>
         Zaradi 500eura u 2min
       </StyledA>
+      <Button
+        label={"Resetiraj balans korisnika"}
+        fullWidth
+        color={colors.primary}
+        backgroundColor={colors.white}
+        onClick={handleLogin}
+      />
       {!loggedIn && (
         <>
           <Form>
@@ -173,7 +176,7 @@ const CSRFAttack: FC = () => {
       )}
       {loggedIn && (
         <div>
-          <p>JWT: {jwt}</p>
+          <p>User: {loggedUser}</p>
           <Button
             color={colors.white}
             backgroundColor={colors.error}
