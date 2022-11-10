@@ -1,7 +1,13 @@
 import React, { FC } from "react";
 import Button from "../components/Button";
 import { colors } from "../constants/colors";
-import { loginUser, logout, resetBalance } from "../api";
+import {
+  getCSRFToken,
+  loginUser,
+  logout,
+  resetBalance,
+  transferMoney,
+} from "../api";
 import Loader from "../components/Loader";
 import styled from "styled-components";
 
@@ -103,6 +109,7 @@ const CSRFAttack: FC = () => {
       if (response.user) {
         setLoggedUser(response.user);
         setLoggedIn(true);
+        await getCSRFToken(); // get CSRF token
       } else if (response.message) {
         setMessage(response.message);
       } else {
@@ -161,6 +168,17 @@ const CSRFAttack: FC = () => {
         color={colors.primary}
         backgroundColor={colors.white}
         onClick={handleBalanceReset}
+      />
+      <Button
+        label={"Transfer 100 eura to jjurenic@mail.com"}
+        fullWidth
+        color={colors.primary}
+        backgroundColor={colors.white}
+        onClick={async () => {
+          setIsLoading(true);
+          await transferMoney(100, "jjurenic@mail.com");
+          setIsLoading(false);
+        }}
       />
       {!loggedIn && (
         <>

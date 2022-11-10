@@ -1,4 +1,5 @@
 import { IComment, ILoginResponse } from "./types";
+import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -58,4 +59,18 @@ export const resetComments = async (): Promise<void> => {
 
 export const resetBalance = async (): Promise<void> => {
   await fetch(`${API_URL}/reset-balance`);
+};
+
+export const getCSRFToken = async () => {
+  const response = await axios.get(`${API_URL}/csrf-token`);
+  axios.defaults.headers.post["X-CSRF-Token"] = response.data.csrfToken;
+};
+
+export const transferMoney = async (
+  amount: number,
+  to: string
+): Promise<void> => {
+  await axios.get(`${API_URL}/api/transfer-secure?amount=${amount}&to=${to}`, {
+    withCredentials: true,
+  });
 };
