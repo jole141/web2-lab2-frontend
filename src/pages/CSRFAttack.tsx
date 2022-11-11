@@ -1,13 +1,7 @@
 import React, { FC } from "react";
 import Button from "../components/Button";
 import { colors } from "../constants/colors";
-import {
-  getCSRFToken,
-  loginUser,
-  logout,
-  resetBalance,
-  transferMoney,
-} from "../api";
+import { loginUser, logout, resetBalance, transferMoney } from "../api";
 import Loader from "../components/Loader";
 import styled from "styled-components";
 
@@ -109,7 +103,6 @@ const CSRFAttack: FC = () => {
       if (response.user) {
         setLoggedUser(response.user);
         setLoggedIn(true);
-        await getCSRFToken(); // get CSRF token
       } else if (response.message) {
         setMessage(response.message);
       } else {
