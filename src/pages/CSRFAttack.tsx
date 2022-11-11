@@ -4,6 +4,7 @@ import { colors } from "../constants/colors";
 import { loginUser, logout, resetBalance, transferMoney } from "../api";
 import Loader from "../components/Loader";
 import styled from "styled-components";
+import { Comment } from "./XSSAttack";
 
 export const Input = styled.input`
   border: 1px solid #ccc;
@@ -30,6 +31,7 @@ const Form = styled.div`
   align-items: flex-start;
   justify-content: center;
   align-self: center;
+  margin: 2rem;
 `;
 
 const ErrorMessage = styled.div`
@@ -145,34 +147,23 @@ const CSRFAttack: FC = () => {
     <Container>
       {isLoading && <Loader />}
       <Title>
-        <h2>CSRF attack {isEnable ? "(OMOGUĆEN)" : "(ONEMOGUĆEN)"}</h2>
-        {/*<Checkbox
-          type="checkbox"
-          checked={isEnable}
-          onChange={() => setIsEnable(!isEnable)}
-        />*/}
+        <h2>CSRF attack</h2>
       </Title>
-      <StyledA href={process.env.REACT_APP_HACKER_CLIENT}>
-        Zaradi 500eura u 2min
-      </StyledA>
-      <Button
-        label={"Resetiraj balans korisnika"}
-        fullWidth
-        color={colors.primary}
-        backgroundColor={colors.white}
-        onClick={handleBalanceReset}
-      />
-      <Button
-        label={"Transfer 100 eura to jjurenic@mail.com"}
-        fullWidth
-        color={colors.primary}
-        backgroundColor={colors.white}
-        onClick={async () => {
-          setIsLoading(true);
-          await transferMoney(100, "jjurenic@mail.com");
-          setIsLoading(false);
-        }}
-      />
+      <Description>
+        <b>Molio bih vas da koristite google Chrome browser za ovaj demo.</b>
+      </Description>
+      <Description>
+        Koristim backend i frontend koji su odvojeni i kako bi omogućio slanje
+        cookie-a oni trebaju biti na istoj domeni. Tako da ovaj primjer jedino
+        radi na google chrome browseru ili ga možete lokalno testirati.
+      </Description>
+      <Description>
+        O ovom dijelu ćemo simulirati CSRF napad. Prvo se potrebno ulogirati.
+        Dostupni korisnički računi su:
+      </Description>
+      <b style={{ width: "100%", textAlign: "center", margin: "1rem 0" }}>
+        (admin, admin), (test, sifra123)
+      </b>
       {!loggedIn && (
         <>
           <Form>
@@ -200,22 +191,36 @@ const CSRFAttack: FC = () => {
         </>
       )}
       {loggedIn && (
-        <div>
-          <p>User: {loggedUser}</p>
-          <Button
-            color={colors.white}
-            backgroundColor={colors.error}
-            label={"Logout"}
-            onClick={handleLogout}
-          />
-        </div>
+        <>
+          <Form>
+            <p>
+              User: <b>{loggedUser}</b>
+            </p>
+            <Button
+              color={colors.white}
+              backgroundColor={colors.error}
+              label={"Logout"}
+              onClick={handleLogout}
+            />
+          </Form>
+          <Description>
+            Uzmimo primjer da ste na nekoj stranici s komentarima pitali za
+            pomoć oko setupanja baze na Render stranici i dobili ste ovaj
+            odgovor:
+          </Description>
+          <Comment>
+            To ti je jako lagano. Ja sam pratio ovaj tutorial i setupao sam u 5
+            minuta. Evo ti link{" "}
+            <StyledA href={process.env.REACT_APP_HACKER_CLIENT}>
+              https://how-to-setup-postgre.com
+            </StyledA>
+          </Comment>
+          <Description>
+            Klikom na link otvara se stranica hackera na kojoj možete simulirati
+            CSRF napad i vidjeti zaštitu od napada.
+          </Description>
+        </>
       )}
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
     </Container>
   );
 };

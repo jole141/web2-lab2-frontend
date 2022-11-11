@@ -15,7 +15,7 @@ const CommentSection = styled.div`
   gap: 1rem;
 `;
 
-const Comment = styled.div`
+export const Comment = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;

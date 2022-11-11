@@ -164,6 +164,11 @@ const BrokenAuth: FC = () => {
         />
       </Title>
       <Description>
+        <b>
+          ZABUNOM SAM RIJEŠIO OVAJ ZADATAK (ostavio sam ga da ne propadne trud)
+        </b>
+      </Description>
+      <Description>
         U ovom napadu nam je cilj pogoditi korisnikovo korisničko ime i loziknu.
         Nezaštičeni sustav omogućava nam beskonačno pokušaja i upravo to ga čini
         ranjivim. Ako je onemogućen napad onda se na poslužitelju radi provjera

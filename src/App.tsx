@@ -29,8 +29,8 @@ function App() {
       <Container>
         <Wrapper>
           <XSSAttack />
-          <BrokenAuth />
           <CSRFAttack />
+          <BrokenAuth />
         </Wrapper>
       </Container>
     </>
